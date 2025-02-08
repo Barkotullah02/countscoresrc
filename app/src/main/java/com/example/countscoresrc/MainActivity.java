@@ -1,5 +1,6 @@
 package com.example.countscoresrc;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         btnFoul = findViewById(R.id.btnFoul);
         btnReset = findViewById(R.id.btnReset);
         undoBtn = findViewById(R.id.btnUndo);
+
 
         undoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,10 +107,27 @@ public class MainActivity extends AppCompatActivity {
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                score = 0;
-                txtScore.setText("");
-                txtLastAction.setText("");
-                txtTimer.setText("");
+                Dialog  dialog = new Dialog(MainActivity.this);
+                dialog.setContentView(R.layout.dialog);
+                dialog.show();
+                Button btnYes = dialog.findViewById(R.id.btnYes);
+                Button btnNo = dialog.findViewById(R.id.btnNo);
+                btnNo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                btnYes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        score = 0;
+                        txtScore.setText("");
+                        txtLastAction.setText("");
+                        dialog.dismiss();
+                    }
+                });
 
             }
         });
